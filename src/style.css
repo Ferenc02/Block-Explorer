@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ganache-yellow-light: #fbb76d;
+  --color-ganache-yellow-dark: #e4a663;
+  --color-ganache-brown-light: #5e464d;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -36,6 +42,32 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+.button {
+  /* background-color: #3e68ff; */
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  min-width: 10ch;
+  padding: 0.25em 0.75em;
+  min-height: 44px;
+  text-align: center;
+  line-height: 1.1;
+  transition: 220ms background-color ease-in-out;
+}
+.fade-in {
+  animation: fadeIn 300ms ease-in forwards;
+}
+.grow-animation {
+  animation: grow 300ms ease-in forwards;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -47,5 +79,24 @@ h1 {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes grow {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
