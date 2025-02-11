@@ -4,6 +4,32 @@
   --color-ganache-yellow-light: #fbb76d;
   --color-ganache-yellow-dark: #e4a663;
   --color-ganache-brown-light: #5e464d;
+
+  --color-dark: #242424;
+  --color-dark-text: #f9fafb;
+
+  --color-light: #fefefe;
+  --color-light-text: #1e1e1e;
+
+  --color-gray: #848484;
+
+  --color-search: #545454;
+  --color-search-border: #848484;
+}
+
+@layer components {
+  .dark-mode {
+    @apply dark:bg-dark dark:text-dark-text;
+
+    --color-search: #545454;
+    --color-search-border: #555555;
+  }
+  .light-mode {
+    @apply bg-light text-light-text;
+
+    --color-search: #fefefe;
+    --color-search-border: #e3e3e3;
+  }
 }
 
 :root {
@@ -36,6 +62,7 @@ body {
   flex-direction: column;
   min-width: 100vw;
   min-height: 100vh;
+  max-width: 100vw;
 }
 
 h1 {
