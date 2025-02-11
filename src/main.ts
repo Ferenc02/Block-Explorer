@@ -1,10 +1,11 @@
 // import { showMessageBox } from "./messageBox";
+import { initializeCopyButtons } from "./components";
 import "./style.css";
 
 // import { ethers, formatEther } from "ethers";
 
 const init = async () => {
-  // alert("Hello World");
+  initializeCopyButtons();
 };
 
 // async function checkProvider() {

@@ -11,7 +11,7 @@
     <script defer type="module" src="/main.ts"></script>
     <title>Blockchain Explorer</title>
   </head>
-  <body class="light-mode">
+  <body class="dark-mode">
     <header
       class="flex w-full justify-between p-4 flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4"
     >
@@ -36,9 +36,17 @@
           <span class="material-symbols-outlined text-gray"> search </span>
         </button>
       </div>
-      <div class="flex items-center max-w-48 overflow-clip whitespace-nowrap">
-        <a href="#" class="wallet-address !font-bold !text-black uppercase"
-          >0x96733c84F8CaC4d804504911a79d39F3121D247f</a
+      <div class="flex items-center max-w-48 relative group">
+        <button
+          href="#"
+          class="wallet-address copy-element !font-bold cursor-pointer overflow-clip whitespace-nowrap max-w-48"
+        >
+          0x96733c84F8CaC4d804504911a79d39F3121D247f
+        </button>
+        <span
+          id="tooltip"
+          class="tooltip group-hover:opacity-100 transition-opacity absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
+          >Copy</span
         >
       </div>
     </header>
