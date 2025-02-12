@@ -117,17 +117,17 @@ const generateCard = async (walletAddress: string) => {
             <div class="flex flex-col mt-4 gap-4 font-light text-xl">
               <div class="flex gap-4 flex-col lg:flex-row">
                 <p>Balance:</p>
-                <p class="card-balance">${walletInformation.balance} eth</p>
+                <p class="card-balance italic">${walletInformation.balance} eth</p>
               </div>
               <div class="flex gap-4 flex-col lg:flex-row">
                 <p>Transactions:</p>
-                <p class="card-transaction-count">${walletInformation.transactionCount}</p>
+                <p class="card-transaction-count italic">${walletInformation.transactionCount}</p>
               </div>
 
 
               <div class="flex gap-4 flex-col lg:flex-row">
                 <p>Last Activity:</p>
-                <p class="card-last-activity">${walletInformation.lastActivity}</p>
+                <p class="card-last-activity italic">${walletInformation.lastActivity}</p>
               </div>
             </div>
 
