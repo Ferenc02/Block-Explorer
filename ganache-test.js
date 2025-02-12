@@ -13,31 +13,104 @@ const transactionsCount = await provider.getTransactionCount(
 );
 console.log("Amount of transactions:", transactionsCount);
 
-// Function to get the last activity of a wallet
-export const getLatestActivity = async (walletAddress) => {
-  const topic = ethers.id("Transfer(address,address,uint256)");
+const getLatestActivity = async (walletAddress) => {
+  const latestBlock = await provider.getBlockNumber();
 
-  const logs = await provider.getLogs({
-    address: walletAddress,
-    fromBlock: 0,
-    toBlock: "latest",
-  });
-  console.log("Logs: ", logs);
-  if (logs.length === 0) {
-    console.log("No activity found");
-    return;
+  for (let i = latestBlock; i >= 0; i--) {
+    const block = await provider.getBlock(i);
+
+    if (!block) {
+      continue;
+    }
+
+    for (const transaction of block.transactions) {
+      const tx = await provider.getTransaction(transaction);
+      if (
+        tx.from.toLowerCase() === walletAddress.toLowerCase() ||
+        (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
+      ) {
+        // console.log(`Latest activity: ${new Date(block.timestamp * 1000)}`);
+
+        let date = new Date(block.timestamp * 1000);
+        return date.toDateString();
+      }
+    }
   }
 
-  const latestLog = logs[logs.length - 1];
-
-  const block = await provider.getBlock(latestLog.blockNumber);
-
-  let date = new Date(block.timestamp * 1000);
-
-  console.log("Latest activity: ", date);
+  return "No activity found";
 };
 
-await getLatestActivity("0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA");
+const getLatestActivity2 = async (walletAddress) => {
+  let low = 0;
+  let high = await provider.getBlockNumber();
+
+  let latestActivity = "";
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+
+    const block = await provider.getBlock(mid);
+
+    let found = false;
+
+    for (const transaction of block.transactions) {
+      const tx = await provider.getTransaction(transaction);
+      if (
+        tx.from.toLowerCase() === walletAddress.toLowerCase() ||
+        (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
+      ) {
+        let date = new Date(block.timestamp * 1000);
+        found = true;
+        latestActivity = date.toDateString();
+        break;
+      }
+    }
+
+    if (found) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return latestActivity || "No activity found";
+};
+
+// // Function to get the last activity of a wallet
+// export const getLatestActivity = async (walletAddress) => {
+//   const topic = ethers.id("Transfer(address,address,uint256)");
+
+//   const logs = await provider.getLogs({
+//     address: walletAddress,
+//     fromBlock: 0,
+//     toBlock: "latest",
+//   });
+//   console.log("Logs: ", logs);
+//   if (logs.length === 0) {
+//     console.log("No activity found");
+//     return;
+//   }
+
+//   const latestLog = logs[logs.length - 1];
+
+//   const block = await provider.getBlock(latestLog.blockNumber);
+
+//   let date = new Date(block.timestamp * 1000);
+
+//   console.log("Latest activity: ", date);
+// };
+
+console.time("latestActivitySlow");
+let latest = await getLatestActivity(
+  "0xc91579bB7972f76D595f8665BffaF92874C8084C"
+);
+console.timeEnd("latestActivitySlow");
+
+console.time("latestActivityFast");
+latest = await getLatestActivity2("0xc91579bB7972f76D595f8665BffaF92874C8084C");
+console.timeEnd("latestActivityFast");
+
+// console.log("Latest activity: ", latest);
 
 // for (let i = 0; i < 2; i++) {
 //   const signer = await provider.getSigner();
