@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import {
   getAverageBlockTime,
   getNetworkName,
@@ -10,7 +9,7 @@ import {
 
 let elements: any;
 
-export const initializeFooter = async (provider: ethers.JsonRpcApiProvider) => {
+export const initializeFooter = async () => {
   const footer = document.querySelector<HTMLDivElement>("footer")!;
 
   let elementsSelector = {

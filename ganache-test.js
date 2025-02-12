@@ -13,19 +13,44 @@ const transactionsCount = await provider.getTransactionCount(
 );
 console.log("Amount of transactions:", transactionsCount);
 
-for (let i = 0; i < 2; i++) {
-  const signer = await provider.getSigner();
-  console.log("Signer: ", signer);
+// Function to get the last activity of a wallet
+export const getLatestActivity = async (walletAddress) => {
+  const topic = ethers.id("Transfer(address,address,uint256)");
 
-  const trx = await signer.sendTransaction({
-    to: "0xc0d8F541Ab8B71F20c10261818F2F401e8194049",
-    value: parseEther("20"),
+  const logs = await provider.getLogs({
+    address: walletAddress,
+    fromBlock: 0,
+    toBlock: "latest",
   });
+  console.log("Logs: ", logs);
+  if (logs.length === 0) {
+    console.log("No activity found");
+    return;
+  }
 
-  const receipt = await trx.wait();
-}
+  const latestLog = logs[logs.length - 1];
 
-console.log("Transaction receipt: ", receipt);
+  const block = await provider.getBlock(latestLog.blockNumber);
+
+  let date = new Date(block.timestamp * 1000);
+
+  console.log("Latest activity: ", date);
+};
+
+await getLatestActivity("0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA");
+
+// for (let i = 0; i < 2; i++) {
+//   const signer = await provider.getSigner();
+//   console.log("Signer: ", signer);
+
+//   const trx = await signer.sendTransaction({
+//     to: "0xc0d8F541Ab8B71F20c10261818F2F401e8194049",
+//     value: parseEther("20"),
+//   });
+
+//   const receipt = await trx.wait();
+//   console.log("Transaction receipt: ", receipt);
+// }
 
 // Old code
 

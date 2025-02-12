@@ -4,11 +4,12 @@
   --color-ganache-yellow-light: #fbb76d;
   --color-ganache-yellow-dark: #e4a663;
   --color-ganache-brown-light: #5e464d;
+  --color-ganache-brown-dark: #4a3b3f;
 
   --color-dark: #242424;
   --color-dark-text: #f9fafb;
 
-  --color-light: #fefefe;
+  --color-light: #f2ede7;
   --color-light-text: #1e1e1e;
 
   --color-gray: #848484;
@@ -33,7 +34,9 @@
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   line-height: 1.5;
   font-weight: 400;
 

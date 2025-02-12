@@ -8,12 +8,13 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
+
     <script defer type="module" src="/main.ts"></script>
     <title>Blockchain Explorer</title>
   </head>
-  <body class="dark-mode flex flex-col h-screen">
+  <body class="light-mode flex flex-col h-screen">
     <header
-      class="flex w-full justify-between p-4 flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4"
+      class="flex w-full justify-between p-4 flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 fade-in"
     >
       <a class="icon-container" href="/">
         <img
@@ -38,7 +39,6 @@
       </div>
       <div class="flex items-center max-w-48 relative group">
         <button
-          href="#"
           class="wallet-address copy-element !font-bold cursor-pointer overflow-clip whitespace-nowrap max-w-48"
         >
           0x96733c84F8CaC4d804504911a79d39F3121D247f
@@ -50,26 +50,49 @@
         >
       </div>
     </header>
-    <main id="app" class="h-full"></main>
-    <footer
-      class="flex justify-around items-center p-2 bg-gray-800 font-bold flex-wrap"
-    >
-      <p class="text-white text-sm footer-total-blocks">
-        📦 Total Blocks: [block_count]
-      </p>
-      <p class="text-white text-sm footer-total-transactions">
-        🔄 Total Transactions: [transaction_count]
-      </p>
-      <p class="text-white text-sm footer-block-time">
-        ⏳ Average Block Time: [block_time]
-      </p>
-      <p class="text-white text-sm footer-total-wallets">
-        🔗 Total Wallets: [wallet_count]
-      </p>
-      <p class="text-white text-sm footer-network-sync">
-        🖧 Network Status: Synced ✅
-      </p>
-      <p class="text-white text-sm footer-network">📡 Network: [network]</p>
+    <main id="app" class="h-full overflow-y-auto p-4">
+      <section id="wallets-section" class="">
+        <h1 class="!text-2xl font-medium">Wallets:</h1>
+
+        <div
+          class="wallet-sort-container flex items-center space-x-4 justify-end mr-6"
+        >
+          <label for="sort-wallets" class="!text-sm">Sort Wallets By:</label>
+          <select
+            id="sort-wallets"
+            class="!text-sm border border-gray-300 rounded-md p-1"
+          >
+            <option value="default">Default</option>
+            <option value="balance">Balance</option>
+            <option value="transactions">Transactions</option>
+            <option value="last-activity">Last Active</option>
+          </select>
+        </div>
+        <div
+          id="wallets-container"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
+        ></div>
+      </section>
+    </main>
+    <footer class="p-2 bg-gray-800 font-bold flex-wrap">
+      <div class="w-full fade-in flex justify-around items-center">
+        <p class="text-white text-sm footer-total-blocks">
+          📦 Total Blocks: [block_count]
+        </p>
+        <p class="text-white text-sm footer-total-transactions">
+          🔄 Total Transactions: [transaction_count]
+        </p>
+        <p class="text-white text-sm footer-block-time">
+          ⏳ Average Block Time: [block_time]
+        </p>
+        <p class="text-white text-sm footer-total-wallets">
+          🔗 Total Wallets: [wallet_count]
+        </p>
+        <p class="text-white text-sm footer-network-sync">
+          🖧 Network Status: Synced ✅
+        </p>
+        <p class="text-white text-sm footer-network">📡 Network: [network]</p>
+      </div>
     </footer>
   </body>
 </html>
