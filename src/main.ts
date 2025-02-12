@@ -1,30 +1,13 @@
-// import { showMessageBox } from "./messageBox";
-import { initializeCopyButtons } from "./components";
+import { initializeCopyButtons } from "./scripts/components";
+import { initializeFooter } from "./scripts/footer";
+import { initializeProvider } from "./scripts/ethers";
 import "./style.css";
 
-// import { ethers, formatEther } from "ethers";
-
 const init = async () => {
+  let provider = await initializeProvider();
   initializeCopyButtons();
+  initializeFooter(provider);
 };
-
-// async function checkProvider() {
-//   try {
-//     const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
-
-//     await provider.getBlockNumber();
-
-//     return provider;
-//   } catch (error: any) {
-//     showMessageBox(
-//       "error",
-//       "Error connecting to provider",
-//       "❌ No provider found or connection failed. Please run ganache-cli or any other Ethereum client on 127.0.0.1:8545"
-//     );
-
-//     return null;
-//   }
-// }
 
 // let provider = (await checkProvider()) || new ethers.JsonRpcProvider();
 

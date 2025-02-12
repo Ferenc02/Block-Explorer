@@ -13,19 +13,19 @@ const transactionsCount = await provider.getTransactionCount(
 );
 console.log("Amount of transactions:", transactionsCount);
 
-// for (let i = 0; i < 10; i++) {
-//   const signer = await provider.getSigner();
-//   console.log("Signer: ", signer);
+for (let i = 0; i < 2; i++) {
+  const signer = await provider.getSigner();
+  console.log("Signer: ", signer);
 
-//   const trx = await signer.sendTransaction({
-//     to: "0xc0d8F541Ab8B71F20c10261818F2F401e8194049",
-//     value: parseEther("20"),
-//   });
+  const trx = await signer.sendTransaction({
+    to: "0xc0d8F541Ab8B71F20c10261818F2F401e8194049",
+    value: parseEther("20"),
+  });
 
-//   const receipt = await trx.wait();
-// }
+  const receipt = await trx.wait();
+}
 
-// console.log("Transaction receipt: ", receipt);
+console.log("Transaction receipt: ", receipt);
 
 // Old code
 
