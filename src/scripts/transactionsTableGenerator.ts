@@ -23,7 +23,7 @@ let generateTransactionRow = async (
   let row = document.createElement("div");
   row.classList.add(
     "grid",
-    "grid-cols-[350px_250px_250px_auto_auto_auto_auto]",
+    "grid-cols-7",
     "w-full",
     "font-bold",
     "text-table-text",
@@ -72,24 +72,24 @@ let generateTransactionRow = async (
                 </div>
               </div>
               <div
-                class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center"
+                class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center justify-center"
               >
                 ${getValueInEther(transaction.value)} ETH
               </div>
               <div
-                class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center"
+                class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center justify-end"
               >
                 ${await new Date(
                   (await getBlockTimeStamp(transaction.blockNumber!)) * 1000
                 ).toLocaleString()}
               </div>
               <div
-                class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center"
+                class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center lg:justify-end justify-start"
               >
                 ${transaction.blockNumber}
               </div>
               <div
-                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center justify-end"
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center justify-center"
               >
                 <button
                   class="text-white bg-ganache-yellow-light px-12 py-1 font-medium shadow-sm border border-search-border cursor-pointer hover:scale-[1.01] rounded-md"
