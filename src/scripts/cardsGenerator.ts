@@ -1,11 +1,15 @@
+import { Wallet } from "ethers";
 import { initializeCopyButtons } from "./copyButton";
 import {
-  activeWallet,
+  setActiveWallet,
   getAllWalletsAddress,
   getBalanceInEther,
   getLatestActivity,
   getTransactionCount,
+  activeWallet,
 } from "./ethers";
+import { showMessageBox } from "./messageBox";
+import { initializeHeader } from "./header";
 
 let walletCards: any;
 
@@ -13,6 +17,8 @@ export const initializeCards = async () => {
   let cardContainer =
     document.querySelector<HTMLDivElement>("#wallets-container")!;
   walletCards = [];
+
+  cardContainer.innerHTML = "";
 
   let wallets = await getAllWalletsAddress();
 
@@ -33,6 +39,8 @@ export const initializeCards = async () => {
     let sortBy = (event.target as HTMLButtonElement).value;
     sortCards(sortBy);
   });
+
+  sortCards(selectionButton!.value);
 
   await initializeCopyButtons();
 };
@@ -157,6 +165,7 @@ const generateCard = async (walletAddress: string) => {
               </button>
 
               <button
+                id="use-wallet-button"
                 class="bg-ganache-yellow-light text-white p-2 uppercase font-bold rounded-md text-sm w-full hover:bg-ganache-yellow-dark transition-colors cursor-pointer shadow-sm"
               >
                 Use Wallet
@@ -166,6 +175,21 @@ const generateCard = async (walletAddress: string) => {
          `;
 
   card.innerHTML = cardHtml;
+
+  let useWalletButton =
+    card.querySelector<HTMLButtonElement>("#use-wallet-button");
+
+  useWalletButton!.addEventListener("click", () => {
+    setActiveWallet(walletInformation.walletAddress);
+
+    showMessageBox("success", "Success", "Wallet set as active");
+
+    initializeHeader();
+    initializeCopyButtons();
+    initializeCards();
+
+    console.log(activeWallet);
+  });
 
   return card;
 };

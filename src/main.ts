@@ -4,12 +4,15 @@ import { activeWallet, initializeProvider } from "./scripts/ethers";
 import "./style.css";
 import { initializeCards } from "./scripts/cardsGenerator";
 import { initializeTransactionsTable } from "./scripts/transactionsTableGenerator";
+import { initializeHeader } from "./scripts/header";
 
 const init = async () => {
   initializeThemeSwitcher();
 
   let provider = await initializeProvider();
   initializeCopyButtons();
+
+  initializeHeader();
 
   if (location.hash === "") {
     await initializeCards();

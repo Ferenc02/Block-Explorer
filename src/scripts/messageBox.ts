@@ -1,5 +1,5 @@
 export const showMessageBox = (
-  type: string,
+  type: "error" | "success",
   title: string,
   message: string
 ) => {

@@ -231,6 +231,12 @@ export const getAllTransactions = async (limit: number) => {
   return transactions;
 };
 
+// Function to set new active wallet
+
+export const setActiveWallet = (walletAddress: string) => {
+  activeWallet = new Wallet(walletAddress);
+};
+
 class Wallet {
   constructor(
     public address: string,
