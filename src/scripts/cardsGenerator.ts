@@ -110,7 +110,7 @@ const generateCard = async (walletAddress: string) => {
               </h2>
               <span
                 id="tooltip"
-                class="tooltip group-hover:opacity-100 transition-opacity absolute top-[-3rem] left-1/2 -translate-x-1/2 opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
+                class="tooltip group-hover:opacity-100 transition-opacity absolute top-[-3.5rem] left-1/2 -translate-x-1/2 opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
                 >Copy</span
               >
             </div>

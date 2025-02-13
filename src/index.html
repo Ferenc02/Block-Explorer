@@ -50,7 +50,7 @@
         >
       </div>
     </header>
-    <main id="app" class="h-full overflow-y-auto p-4">
+    <main id="app" class="h-full overflow-y-auto p-4 relative">
       <section id="wallets-section" class="">
         <h1 class="!text-2xl font-medium">Wallets:</h1>
 
@@ -72,6 +72,40 @@
           id="wallets-container"
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
         ></div>
+      </section>
+
+      <section
+        class="fixed right-0 bottom-0 sm:mr-12 mr-6 sm:mb-16 mb-28 flex flex-col items-end"
+      >
+        <div
+          id="action-buttons-container"
+          class="fade-in action-buttons flex flex-col shadow-md rounded-lg bg-search border-search-border hidden"
+        >
+          <button
+            class="text-left bg-search px-2 py-2 font-medium border-b border-search-border cursor-pointer hover:scale-[1.01] rounded-t-lg"
+          >
+            💸 Make a Transaction
+          </button>
+          <button
+            class="text-left bg-search px-2 py-2 font-medium border-b border-search-border cursor-pointer hover:scale-[1.01]"
+          >
+            🆕 Create New Wallet
+          </button>
+          <button
+            class="text-left bg-search px-2 py-2 font-medium border-b border-search-border cursor-pointer hover:scale-[1.01] rounded-b-lg"
+          >
+            🔍 View Wallet
+          </button>
+        </div>
+
+        <button
+          id="action-button"
+          class="bg-ganache-yellow-light hover:bg-ganache-yellow-dark transition-colors text-white p-4 rounded-full flex items-center justify-center cursor-pointer shadow-md border-search-border border"
+        >
+          <span class="scale-125 material-symbols-outlined text-white">
+            add
+          </span>
+        </button>
       </section>
     </main>
     <footer class="p-2 bg-gray-800 font-bold">
