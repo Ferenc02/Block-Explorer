@@ -16,7 +16,11 @@ export async function initializeProvider() {
 
   loadBlocks();
 
-  activeWallet = new Wallet("0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA");
+  let localStorageActiveWallet =
+    localStorage.getItem("activeWallet") ||
+    "0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA";
+
+  activeWallet = new Wallet(localStorageActiveWallet);
 
   console.log(activeWallet);
   return provider;
@@ -235,6 +239,8 @@ export const getAllTransactions = async (limit: number) => {
 
 export const setActiveWallet = (walletAddress: string) => {
   activeWallet = new Wallet(walletAddress);
+
+  localStorage.setItem("activeWallet", walletAddress);
 };
 
 class Wallet {

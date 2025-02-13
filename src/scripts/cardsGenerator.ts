@@ -40,8 +40,6 @@ export const initializeCards = async () => {
     sortCards(sortBy);
   });
 
-  sortCards(selectionButton!.value);
-
   await initializeCopyButtons();
 };
 
@@ -187,8 +185,6 @@ const generateCard = async (walletAddress: string) => {
     initializeHeader();
     initializeCopyButtons();
     initializeCards();
-
-    console.log(activeWallet);
   });
 
   return card;
