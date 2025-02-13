@@ -14,16 +14,26 @@
 
   --color-gray: #848484;
 
-  --color-search: #545454;
+  --color-search: #444444;
   --color-search-border: #848484;
+
+  --color-table: #f2f2f2;
+  --color-table-alt: #fefefe;
+  --color-table-border: #d7d4d4;
+  --color-table-text: #757575;
 }
 
 @layer components {
   .dark-mode {
     @apply dark:bg-dark dark:text-dark-text;
 
-    --color-search: #545454;
+    --color-search: #444444;
     --color-search-border: #555555;
+
+    --color-table: #545454;
+    --color-table-border: #5a5a5a;
+    --color-table-alt: #585858;
+    --color-table-text: #fefefe;
   }
   .light-mode {
     @apply bg-light text-light-text;

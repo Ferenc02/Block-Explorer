@@ -51,6 +51,7 @@
       </div>
     </header>
     <main id="app" class="h-full overflow-y-auto p-4 relative">
+      <!-- Wallet cards section -->
       <section id="wallets-section" class="">
         <h1 class="!text-2xl font-medium">Wallets:</h1>
 
@@ -74,6 +75,142 @@
         ></div>
       </section>
 
+      <section id="transactions-section overflow-auto">
+        <h1 class="!text-2xl font-medium">Transactions:</h1>
+        <div
+          class="transaction-sort-container flex items-center space-x-4 justify-end mr-6"
+        >
+          <label for="sort-transactions" class="!text-sm"
+            >Sort Transactions By:</label
+          >
+          <select
+            id="sort-transactions"
+            class="!text-sm border border-gray-300 rounded-md p-1 bg-search"
+          >
+            <option value="default">Default</option>
+            <option value="amount">Amount</option>
+            <option value="date">Date</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+        <div class="w-full overflow-auto border border-search-border shadow-sm">
+          <div
+            id="transactions-grid"
+            class="min-w-[800px] border border-search-border shadow-sm [&>*:nth-child(odd)]:bg-table [&>*:nth-child(even)]:bg-table-alt"
+          >
+            <!-- Table Header -->
+            <div class="w-full grid grid-cols-7">
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                Tx Hash
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                From
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                To
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                Amount
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                Timestamp
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2"
+              >
+                Status
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 flex justify-end pr-4"
+              >
+                Action
+              </div>
+            </div>
+
+            <!-- Table Row -->
+            <div class="grid grid-cols-7 w-full font-bold text-table-text">
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center"
+              >
+                <div class="group relative cursor-pointer w-full">
+                  <p class="copy-element">
+                    0x96733c84F8CaC4d804504911a79d39F3121D247f
+                  </p>
+                  <span
+                    id="tooltip"
+                    class="tooltip group-hover:opacity-100 transition-opacity absolute bottom-0 right-0 left-0 w-fit m-auto opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
+                    >Copy</span
+                  >
+                </div>
+              </div>
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center"
+              >
+                <div class="group relative cursor-pointer w-full">
+                  <p class="copy-element">
+                    0x96733c84F8CaC4d804504911a79d39F3121D247f
+                  </p>
+                  <span
+                    id="tooltip"
+                    class="tooltip group-hover:opacity-100 transition-opacity absolute bottom-0 right-0 left-0 w-fit m-auto opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
+                    >Copy</span
+                  >
+                </div>
+              </div>
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center"
+              >
+                <div class="group relative cursor-pointer w-full">
+                  <p class="copy-element">
+                    0x96733c84F8CaC4d804504911a79d39F3121D247f
+                  </p>
+                  <span
+                    id="tooltip"
+                    class="tooltip group-hover:opacity-100 transition-opacity absolute bottom-0 right-0 left-0 w-fit m-auto opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
+                    >Copy</span
+                  >
+                </div>
+              </div>
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center"
+              >
+                10.45 ETH
+              </div>
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center"
+              >
+                2021-09-01
+              </div>
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center"
+              >
+                Success
+              </div>
+              <div
+                class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center justify-end"
+              >
+                <button
+                  class="text-white bg-ganache-yellow-light px-12 py-1 font-medium shadow-sm border border-search-border cursor-pointer hover:scale-[1.01]"
+                >
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
       <section
         class="fixed right-0 bottom-0 sm:mr-12 mr-6 sm:mb-16 mb-28 flex flex-col items-end"
       >
