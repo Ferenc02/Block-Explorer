@@ -1,6 +1,6 @@
-import { sleep } from "../main";
 import { initializeCopyButtons } from "./copyButton";
 import {
+  activeWallet,
   getAllWalletsAddress,
   getBalanceInEther,
   getLatestActivity,
@@ -8,6 +8,7 @@ import {
 } from "./ethers";
 
 let walletCards: any;
+
 export const initializeCards = async () => {
   let cardContainer =
     document.querySelector<HTMLDivElement>("#wallets-container")!;
@@ -81,7 +82,8 @@ const generateCard = async (walletAddress: string) => {
     "py-6",
     "rounded-lg",
     "max-w-96",
-    "fade-in"
+    "fade-in",
+    "relative"
   );
 
   let walletInformation = {
@@ -101,7 +103,16 @@ const generateCard = async (walletAddress: string) => {
   card.setAttribute("data-transactions", walletInformation.transactionCount);
   card.setAttribute("data-last-activity", walletInformation.lastActivity);
 
-  let cardHtml = ` 
+  let cardHtml = `
+
+              ${
+                activeWallet.address === walletInformation.walletAddress
+                  ? ` <div class="absolute top-0 right-0 bg-ganache-yellow-light p-2 rounded-lg  text-white text-xs font-bold uppercase select-none">
+                Active
+              </div>`
+                  : ""
+              }
+              
             <div class="group relative">
               <h2
                 class="text-xl card-wallet-address copy-element !font-bold text-center overflow-ellipsis whitespace-nowrap overflow-hidden px-4 cursor-pointer"
@@ -114,20 +125,27 @@ const generateCard = async (walletAddress: string) => {
                 >Copy</span
               >
             </div>
-            <div class="flex flex-col mt-4 gap-4 font-light text-xl">
+            <div class="flex flex-col mt-4 gap-4 font-light text-xl relative">
+            
               <div class="flex gap-4 flex-col lg:flex-row">
                 <p>Balance:</p>
-                <p class="card-balance italic">${walletInformation.balance} eth</p>
+                <p class="card-balance italic">${
+                  walletInformation.balance
+                } eth</p>
               </div>
               <div class="flex gap-4 flex-col lg:flex-row">
                 <p>Transactions:</p>
-                <p class="card-transaction-count italic">${walletInformation.transactionCount}</p>
+                <p class="card-transaction-count italic">${
+                  walletInformation.transactionCount
+                }</p>
               </div>
 
 
               <div class="flex gap-4 flex-col lg:flex-row">
                 <p>Last Activity:</p>
-                <p class="card-last-activity italic">${walletInformation.lastActivity}</p>
+                <p class="card-last-activity italic">${
+                  walletInformation.lastActivity
+                }</p>
               </div>
             </div>
 
@@ -144,6 +162,7 @@ const generateCard = async (walletAddress: string) => {
                 Use Wallet
               </button>
             </div>
+
          `;
 
   card.innerHTML = cardHtml;

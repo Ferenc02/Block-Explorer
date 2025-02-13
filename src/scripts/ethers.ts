@@ -8,12 +8,17 @@ export let providerExists = false;
 let hasLoadedBlocks = false;
 
 let blocks: Array<ethers.Block> = [];
+export let activeWallet: Wallet;
 
 // Function to initialize the provider
 export async function initializeProvider() {
   provider = (await checkProvider()) || new ethers.JsonRpcProvider();
 
   loadBlocks();
+
+  activeWallet = new Wallet("0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA");
+
+  await activeWallet.loadWallet();
 
   return provider;
 }
@@ -173,29 +178,53 @@ export const getLatestActivity = async (walletAddress: string) => {
   return latestActivity || "No activity found";
 };
 
-// Function to get the last activity of a wallet
-// export const getLatestActivity = async (walletAddress: string) => {
-//   for (let i = blocks.length; i >= 0; i--) {
-//     const block = blocks[i];
-//     if (!block) {
-//       continue;
-//     }
+// Function to get all transactions of a wallet
+export const getTransactions = async (walletAddress: string) => {
+  let transactions = [];
 
-//     for (const transaction of block.transactions) {
-//       const tx = (await provider.getTransaction(
-//         transaction
-//       )) as ethers.TransactionResponse;
-//       if (
-//         tx.from.toLowerCase() === walletAddress.toLowerCase() ||
-//         (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
-//       ) {
-//         // console.log(`Latest activity: ${new Date(block.timestamp * 1000)}`);
+  for (const block of blocks) {
+    for (const transaction of block.transactions) {
+      const tx = (await provider.getTransaction(
+        transaction
+      )) as ethers.TransactionResponse;
+      if (
+        tx.from.toLowerCase() === walletAddress.toLowerCase() ||
+        (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
+      ) {
+        transactions.push(tx);
+      }
+    }
+  }
 
-//         let date = new Date(block.timestamp * 1000);
-//         return date.toDateString();
-//       }
-//     }
-//   }
+  return transactions;
+};
 
-//   return "No activity found";
-// };
+class Wallet {
+  constructor(
+    public address: string,
+    public balance?: string,
+    public transactions?: Array<ethers.TransactionResponse>,
+    public lastActivity?: string
+  ) {}
+
+  loadWallet = async () => {
+    this.balance = await this.getBalance();
+    this.transactions = await this.getTransactions();
+  };
+
+  getBalance = async () => {
+    return await getBalanceInEther(this.address);
+  };
+
+  getLastActivity = async () => {
+    return await getLatestActivity(this.address);
+  };
+
+  getTransactions = async () => {
+    return await getTransactions(this.address);
+  };
+
+  setAddress = (address: string) => {
+    this.address = address;
+  };
+}

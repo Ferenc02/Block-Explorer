@@ -12,7 +12,7 @@
     <script defer type="module" src="/main.ts"></script>
     <title>Blockchain Explorer</title>
   </head>
-  <body class="light-mode flex flex-col h-screen">
+  <body class="flex flex-col h-screen">
     <header
       class="flex w-full justify-between p-4 flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 fade-in"
     >
@@ -37,7 +37,7 @@
           <span class="material-symbols-outlined text-gray"> search </span>
         </button>
       </div>
-      <div class="flex items-center max-w-48 relative group">
+      <div class="flex items-center max-w-56 relative group">
         <button
           class="wallet-address copy-element !font-bold cursor-pointer overflow-clip whitespace-nowrap max-w-48"
         >
@@ -60,7 +60,7 @@
           <label for="sort-wallets" class="!text-sm">Sort Wallets By:</label>
           <select
             id="sort-wallets"
-            class="!text-sm border border-gray-300 rounded-md p-1"
+            class="!text-sm border border-gray-300 rounded-md p-1 bg-search"
           >
             <option value="default">Default</option>
             <option value="balance">Balance</option>
@@ -70,7 +70,7 @@
         </div>
         <div
           id="wallets-container"
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4"
         ></div>
       </section>
 
@@ -126,6 +126,13 @@
           🖧 Network Status: Synced ✅
         </p>
         <p class="text-white text-sm footer-network">📡 Network: [network]</p>
+        <button
+          id="theme-switcher"
+          class="theme-switcher cursor-pointer flex items-center"
+        >
+          <span class="material-symbols-outlined text-white"> dark_mode </span>
+          <span class="material-symbols-outlined text-white"> light_mode </span>
+        </button>
       </div>
     </footer>
   </body>
