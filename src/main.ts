@@ -3,6 +3,7 @@ import { initializeFooter } from "./scripts/footer";
 import { activeWallet, initializeProvider } from "./scripts/ethers";
 import "./style.css";
 import { initializeCards } from "./scripts/cardsGenerator";
+import { initializeTransactionsTable } from "./scripts/transactionsTableGenerator";
 
 const init = async () => {
   initializeThemeSwitcher();
@@ -12,6 +13,7 @@ const init = async () => {
 
   if (location.hash === "") {
     await initializeCards();
+    await initializeTransactionsTable(20);
   }
 
   await initializeFooter();

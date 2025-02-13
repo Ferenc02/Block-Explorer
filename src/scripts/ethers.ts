@@ -18,8 +18,7 @@ export async function initializeProvider() {
 
   activeWallet = new Wallet("0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA");
 
-  await activeWallet.loadWallet();
-
+  console.log(activeWallet);
   return provider;
 }
 
@@ -108,11 +107,21 @@ export const getTotalBlocks = async () => {
   const totalBlocks = (await provider.getBlockNumber()).toString();
   return totalBlocks;
 };
+// Get block timestamp
+export const getBlockTimeStamp = async (blockNumber: number) => {
+  const block = (await provider.getBlock(blockNumber)) as ethers.Block;
+  return block.timestamp;
+};
 
 // Get balance of a wallet in ether
 export const getBalanceInEther = async (walletAddress: string) => {
   const balance = await provider.getBalance(walletAddress);
   return ethers.formatEther(balance);
+};
+
+// Get value from a transaction in ether
+export const getValueInEther = (value: ethers.BigNumberish): string => {
+  return ethers.formatEther(value);
 };
 
 // Get number of transactions of a wallet
@@ -199,13 +208,41 @@ export const getTransactions = async (walletAddress: string) => {
   return transactions;
 };
 
+// Function to get all transactions
+export const getAllTransactions = async (limit: number) => {
+  let transactions = [];
+
+  let count = 0;
+
+  for (const block of blocks) {
+    for (const transaction of block.transactions) {
+      const tx = (await provider.getTransaction(
+        transaction
+      )) as ethers.TransactionResponse;
+      transactions.push(tx);
+
+      count++;
+
+      if (count === limit) {
+        return transactions;
+      }
+    }
+  }
+  return transactions;
+};
+
 class Wallet {
   constructor(
     public address: string,
     public balance?: string,
     public transactions?: Array<ethers.TransactionResponse>,
     public lastActivity?: string
-  ) {}
+  ) {
+    this.init();
+  }
+  private async init() {
+    await this.loadWallet();
+  }
 
   loadWallet = async () => {
     this.balance = await this.getBalance();
