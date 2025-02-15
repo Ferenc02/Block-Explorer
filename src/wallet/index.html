@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/static/icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <script defer type="module" src="../main.ts"></script>
+    <title>Blockchain Explorer - Wallet</title>
+  </head>
+  <body class="flex flex-col h-screen">
+    <header
+      class="flex w-full justify-between p-4 flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 fade-in"
+    >
+      <a class="icon-container" href="/">
+        <img
+          src="/static/icon.svg"
+          alt="Logo for Block Explorer"
+          class="w-12 h-12"
+        />
+      </a>
+      <div
+        class="search-container w-2/3 relative hover:scale-[1.005] transition-transform duration-200"
+      >
+        <input
+          type="text"
+          placeholder="Enter Transaction Hash, Block Number, or Wallet Address"
+          class="w-full py-3 pl-10 rounded-lg border border-search-border shadow-sm outline-none bg-search"
+        />
+        <button
+          class="search-icon absolute h-full w-12 bg-search top-0 right-0 transform cursor-pointer flex items-center justify-center outline-0 border-search-border border border-l-0 rounded-r-lg"
+        >
+          <span class="material-symbols-outlined text-gray"> search </span>
+        </button>
+      </div>
+      <div class="flex items-center max-w-56 relative group">
+        <button
+          class="header-wallet-address copy-element !font-bold cursor-pointer overflow-clip whitespace-nowrap max-w-48"
+        >
+          0x96733c84F8CaC4d804504911a79d39F3121D247f
+        </button>
+        <span
+          id="tooltip"
+          class="tooltip group-hover:opacity-100 transition-opacity absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 mx-auto whitespace-normal break-words rounded-lg py-1.5 px-3 text-sm font-normal focus:outline-none shadow-sm bg-search pointer-events-none"
+          >Copy</span
+        >
+      </div>
+    </header>
+    <main id="app" class="h-full overflow-y-auto p-4 relative">
+      <section id="transactions-section overflow-auto">
+        <h1 class="!text-2xl font-medium">Transactions:</h1>
+        <div class="w-full overflow-auto border border-search-border mt-4">
+          <div
+            id="transactions-grid"
+            class="min-w-[800px] border border-search-border shadow-sm [&>*:nth-child(odd)]:bg-table [&>*:nth-child(even)]:bg-table-alt"
+          >
+            <!-- Table Header -->
+            <div class="w-full grid grid-cols-7">
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                Tx Hash
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                From
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4"
+              >
+                To
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4 flex justify-center"
+              >
+                Amount
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 pl-4 flex justify-center"
+              >
+                Timestamp
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 flex lg:justify-end justify-start"
+              >
+                Block
+              </div>
+              <div
+                class="bg-ganache-brown-light text-white font-semibold uppercase p-2 flex justify-center pr-4"
+              >
+                Action
+              </div>
+            </div>
+
+            <!-- Table Row -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <section
+        class="fixed right-0 bottom-0 sm:mr-12 mr-6 sm:mb-16 mb-28 flex flex-col items-end"
+      >
+        <div
+          id="action-buttons-container"
+          class="fade-in action-buttons flex flex-col shadow-md rounded-lg bg-search border-search-border hidden"
+        >
+          <button
+            class="text-left bg-search px-2 py-2 font-medium border-b border-search-border cursor-pointer hover:scale-[1.01] rounded-t-lg"
+          >
+            💸 Make a Transaction
+          </button>
+          <button
+            class="text-left bg-search px-2 py-2 font-medium border-b border-search-border cursor-pointer hover:scale-[1.01]"
+          >
+            🆕 Create New Wallet
+          </button>
+          <button
+            class="text-left bg-search px-2 py-2 font-medium border-b border-search-border cursor-pointer hover:scale-[1.01] rounded-b-lg"
+          >
+            🔍 View Wallet
+          </button>
+        </div>
+
+        <button
+          id="action-button"
+          class="bg-ganache-yellow-light hover:bg-ganache-yellow-dark transition-colors text-white p-4 rounded-full flex items-center justify-center cursor-pointer shadow-md"
+        >
+          <span class="scale-125 material-symbols-outlined text-white">
+            add
+          </span>
+        </button>
+      </section>
+    </main>
+    <footer class="p-2 bg-gray-800 font-bold">
+      <div class="w-full fade-in flex justify-around items-center flex-wrap">
+        <p class="text-white text-sm footer-total-blocks">
+          📦 Total Blocks: [block_count]
+        </p>
+        <p class="text-white text-sm footer-total-transactions">
+          🔄 Total Transactions: [transaction_count]
+        </p>
+        <p class="text-white text-sm footer-block-time">
+          ⏳ Average Block Time: [block_time]
+        </p>
+        <p class="text-white text-sm footer-total-wallets">
+          🔗 Total Wallets: [wallet_count]
+        </p>
+        <p class="text-white text-sm footer-network-sync">
+          🖧 Network Status: Synced ✅
+        </p>
+        <p class="text-white text-sm footer-network">📡 Network: [network]</p>
+        <button
+          id="theme-switcher"
+          class="theme-switcher cursor-pointer flex items-center"
+        >
+          <span class="material-symbols-outlined text-white"> dark_mode </span>
+          <span class="material-symbols-outlined text-white"> light_mode </span>
+        </button>
+      </div>
+    </footer>
+  </body>
+</html>

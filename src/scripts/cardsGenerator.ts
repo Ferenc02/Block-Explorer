@@ -156,11 +156,13 @@ const generateCard = async (walletAddress: string) => {
             </div>
 
             <div class="flex flex-col justify-center mt-4 gap-2">
-              <button
-                class="bg-ganache-brown-light text-white p-2 uppercase font-bold rounded-md text-sm w-full hover:bg-ganache-brown-dark transition-colors cursor-pointer shadow-sm"
+              <a
+                id="view-wallet-button"
+                href="/wallet/#${walletInformation.walletAddress}"
+                class="bg-ganache-brown-light !text-white p-2 !uppercase !text-center !font-bold rounded-md text-sm w-full hover:bg-ganache-brown-dark transition-colors cursor-pointer shadow-sm"
               >
                 View Wallet
-              </button>
+              </a>
 
               <button
                 id="use-wallet-button"

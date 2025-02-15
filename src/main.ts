@@ -5,6 +5,7 @@ import "./style.css";
 import { initializeCards } from "./scripts/cardsGenerator";
 import { initializeTransactionsTable } from "./scripts/transactionsTableGenerator";
 import { initializeHeader } from "./scripts/header";
+import { initializeViewWallet } from "./scripts/viewWallet";
 
 const init = async () => {
   initializeThemeSwitcher();
@@ -14,9 +15,15 @@ const init = async () => {
 
   initializeHeader();
 
-  if (location.hash === "") {
+  console.log("hash", location.hash);
+
+  if (location.pathname === "/") {
     await initializeCards();
     await initializeTransactionsTable(20);
+  }
+
+  if (location.pathname === "/wallet/") {
+    await initializeViewWallet();
   }
 
   await initializeFooter();
@@ -24,6 +31,8 @@ const init = async () => {
   initializeActionButton();
 };
 
+// Function used to initialize the action button and add the event listener to toggle the action buttons container
+// This is the button on the bottom right of the screen
 export const initializeActionButton = () => {
   let actionButtonsContainer = document.querySelector<HTMLButtonElement>(
     "#action-buttons-container"
@@ -36,6 +45,7 @@ export const initializeActionButton = () => {
   });
 };
 
+// Function used to initialize the theme switcher and set the theme while also adding the event listener to switch the theme
 export const initializeThemeSwitcher = () => {
   let themeSwitcher = document.querySelector<HTMLButtonElement>(
     "#theme-switcher"

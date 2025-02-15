@@ -8,7 +8,7 @@ export let providerExists = false;
 let hasLoadedBlocks = false;
 
 let blocks: Array<ethers.Block> = [];
-export let activeWallet: Wallet;
+export let activeWallet: LocalWallet;
 
 // Function to initialize the provider
 export async function initializeProvider() {
@@ -20,7 +20,7 @@ export async function initializeProvider() {
     localStorage.getItem("activeWallet") ||
     "0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA";
 
-  activeWallet = new Wallet(localStorageActiveWallet);
+  activeWallet = new LocalWallet(localStorageActiveWallet);
 
   console.log(activeWallet);
   return provider;
@@ -238,12 +238,12 @@ export const getAllTransactions = async (limit: number) => {
 // Function to set new active wallet
 
 export const setActiveWallet = (walletAddress: string) => {
-  activeWallet = new Wallet(walletAddress);
+  activeWallet = new LocalWallet(walletAddress);
 
   localStorage.setItem("activeWallet", walletAddress);
 };
 
-class Wallet {
+export class LocalWallet {
   constructor(
     public address: string,
     public balance?: string,
@@ -257,6 +257,13 @@ class Wallet {
   }
 
   loadWallet = async () => {
+    try {
+      let addressExists = await provider.getBalance(this.address);
+    } catch (error: any) {
+      showMessageBox("error", "404 Not Found", "Wallet address not found");
+      return;
+    }
+
     this.balance = await this.getBalance();
     this.transactions = await this.getTransactions();
   };

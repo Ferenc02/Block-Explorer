@@ -15,7 +15,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "src/index.html"),
-        nested: resolve(__dirname, "src/nested/index.html"),
+        nested: resolve(__dirname + "/wallet", "src/wallet/index.html"),
       },
     },
   },
