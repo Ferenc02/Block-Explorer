@@ -7,6 +7,7 @@ import { initializeTransactionsTable } from "./scripts/transactionsTableGenerato
 import { initializeHeader } from "./scripts/header";
 import { initializeViewWallet } from "./scripts/viewWallet";
 import { initializeTransactionPage } from "./scripts/newTransaction";
+import { initializeSearchBar } from "./scripts/searchBar";
 
 const init = async () => {
   initializeThemeSwitcher();
@@ -34,6 +35,7 @@ const init = async () => {
   await initializeFooter();
 
   if (location.pathname !== "/new-transaction/") {
+    await initializeSearchBar();
     initializeActionButton();
   }
 };

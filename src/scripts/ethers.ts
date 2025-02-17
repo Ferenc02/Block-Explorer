@@ -7,7 +7,7 @@ export let providerExists = false;
 
 let hasLoadedBlocks = false;
 
-let blocks: Array<ethers.Block> = [];
+export let blocks: Array<ethers.Block> = [];
 export let activeWallet: LocalWallet;
 
 // Function to initialize the provider
@@ -183,7 +183,6 @@ export const getLatestActivity = async (
   latestActivity =
     blocks
       .find((block) => {
-        console.log(block.transactions, latestTransaction.hash);
         if (block.transactions.includes(latestTransaction.hash)) {
           return block;
         }
@@ -229,6 +228,14 @@ export const getLatestActivity = async (
   //     high = mid - 1;
   //   }
   // }
+};
+// Function to get the transaction details with the hash
+export const getTransactionDetailsWithHash = async (
+  transactionHash: string
+) => {
+  let tx = await provider.getTransaction(transactionHash);
+
+  return tx;
 };
 
 // Function to get all transactions of a wallet
@@ -302,7 +309,6 @@ export const showTransactionDetails = async (
   transaction: ethers.TransactionResponse,
   persistent?: boolean
 ) => {
-  console.log(transaction);
   showMessageBox(
     "success",
     "Transaction Details",
