@@ -66,6 +66,9 @@ export const initializeSearchBar = async () => {
 
             return;
           }
+
+          showMessageBox("error", "Invalid Address", "Invalid Address entered");
+          return;
         }
 
         showTransactionDetails(transaction!);
