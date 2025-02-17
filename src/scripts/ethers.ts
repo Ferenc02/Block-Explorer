@@ -85,6 +85,7 @@ export const getTotalWallets = async () => {
 // Function to get all wallets address
 export const getAllWalletsAddress = async () => {
   const wallets = await provider.listAccounts();
+
   return wallets.map((wallet) => wallet.address);
 };
 
@@ -252,7 +253,6 @@ export const setActiveWallet = async (walletAddress: string) => {
 };
 
 // show Transactions Details
-
 export const showTransactionDetails = async (
   transaction: ethers.TransactionResponse
 ) => {

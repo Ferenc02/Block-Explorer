@@ -43,6 +43,20 @@ export const initializeActionButton = () => {
   actionButton!.addEventListener("click", async () => {
     actionButtonsContainer?.classList.toggle("hidden");
   });
+
+  let actionButtons =
+    actionButtonsContainer?.querySelectorAll<HTMLButtonElement>("button");
+
+  // Make a transaction button
+  actionButtons![0].addEventListener("click", async () => {
+    location.href = "/new-transaction/";
+  });
+
+  // View active wallet button
+  actionButtons![1].addEventListener("click", async () => {
+    location.href = `/wallet/#${activeWallet.address}`;
+    location.reload();
+  });
 };
 
 // Function used to initialize the theme switcher and set the theme while also adding the event listener to switch the theme

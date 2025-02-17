@@ -56,6 +56,10 @@ export const initializeViewWallet = async () => {
     .filter((transaction) => transaction.from === wallet.address)
     .length.toString();
 
+  if (wallet.address !== localStorage.getItem("activeWallet")) {
+    useWalletButton.classList.remove("hidden");
+  }
+
   useWalletButton.addEventListener("click", async () => {
     await setActiveWallet(wallet.address);
 
