@@ -17,10 +17,10 @@ export const showMessageBox = (
   messageBoxParent.innerHTML = `
         <!-- Message box -->
     <div
-      class="message-box fixed w-full h-full bg-opacity-75 bg-gray-900/65 flex justify-center items-center  z-50 fade-in "
+      class="message-box fixed w-full h-full bg-opacity-75 bg-gray-900/65 flex justify-center items-center  z-50 fade-in scale-100"
     >
       <div
-        class="message-box__content grow-animation bg-white rounded-lg mx-auto p-4 flex flex-col items-center gap-8 shadow-lg max-w-xs  md:max-w-md min-w-sm"
+        class="message-box__content grow-animation bg-white rounded-lg mx-auto p-4 flex flex-col items-center gap-8 shadow-lg max-w-[90vw] max-h-[80vh]  md:max-w-md md:min-w-sm"
       >
         <span
           class="message-box__icon material-symbols-outlined text-ganache-yellow-light !text-8xl mt-4"

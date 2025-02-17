@@ -59,6 +59,11 @@ export const initializeSearchBar = async () => {
 
           if (availableWallets.includes(query)) {
             location.href = `/wallet/#${query}`;
+
+            if (location.pathname === "/wallet/") {
+              location.reload();
+            }
+
             return;
           }
         }
