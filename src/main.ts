@@ -20,7 +20,7 @@ const init = async () => {
 
   if (location.pathname === "/") {
     await initializeCards();
-    await initializeTransactionsTable(20);
+    await initializeTransactionsTable(100);
   }
 
   if (location.pathname === "/wallet/") {

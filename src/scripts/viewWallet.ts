@@ -80,7 +80,7 @@ export const initializeViewWallet = async () => {
     location.href = `/new-transaction/#${wallet.address}`;
   });
 
-  await initializeTransactionsTable(20, wallet.transactions);
+  await initializeTransactionsTable(50, wallet.transactions);
 
   initializeCopyButtons();
 };
