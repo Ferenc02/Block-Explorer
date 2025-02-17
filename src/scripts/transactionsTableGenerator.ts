@@ -6,6 +6,8 @@ import {
   showTransactionDetails,
 } from "./ethers";
 
+import { initializeCopyButtons } from "./copyButton";
+
 export const initializeTransactionsTable = async (
   limit: number,
   transactions?: Array<ethers.TransactionResponse>
@@ -21,6 +23,8 @@ export const initializeTransactionsTable = async (
     let row = await generateTransactionRow(transaction);
     transactionsTable.appendChild(row);
   }
+
+  initializeCopyButtons();
 };
 
 let generateTransactionRow = async (

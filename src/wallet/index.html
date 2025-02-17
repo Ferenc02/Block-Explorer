@@ -26,16 +26,21 @@
       <div
         class="search-container w-2/3 relative hover:scale-[1.005] transition-transform duration-200"
       >
-        <input
-          type="text"
-          placeholder="Enter Transaction Hash, Block Number, or Wallet Address"
-          class="w-full py-3 pl-10 rounded-lg border border-search-border shadow-sm outline-none bg-search"
-        />
-        <button
-          class="search-icon absolute h-full w-12 bg-search top-0 right-0 transform cursor-pointer flex items-center justify-center outline-0 border-search-border border border-l-0 rounded-r-lg"
-        >
-          <span class="material-symbols-outlined text-gray"> search </span>
-        </button>
+        <form id="search-form">
+          <input
+            type="text"
+            id="search-bar"
+            name="search"
+            placeholder="Enter Transaction Hash, Block Number, or Wallet Address"
+            class="w-full py-3 pl-10 rounded-lg border border-search-border shadow-sm outline-none bg-search"
+          />
+          <button
+            type="submit"
+            class="search-icon absolute h-full w-12 bg-search top-0 right-0 transform cursor-pointer flex items-center justify-center outline-0 border-search-border border border-l-0 rounded-r-lg"
+          >
+            <span class="material-symbols-outlined text-gray"> search </span>
+          </button>
+        </form>
       </div>
       <div class="flex items-center max-w-56 relative group">
         <button
