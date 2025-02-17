@@ -50,15 +50,11 @@ export const initializeViewWallet = async () => {
   walletTotalTransactions.innerText =
     wallet.transactions?.length?.toString() || "0";
   walletTotalReceived.innerText = wallet.transactions
-    ? wallet.transactions
-        .filter((transaction) => transaction.to === wallet.address)
-        .length.toString()
-    : "0";
+    .filter((transaction) => transaction.to === wallet.address)
+    .length.toString();
   walletTotalSent.innerText = wallet.transactions
-    ? wallet.transactions
-        .filter((transaction) => transaction.from === wallet.address)
-        .length.toString()
-    : "0";
+    .filter((transaction) => transaction.from === wallet.address)
+    .length.toString();
 
   useWalletButton.addEventListener("click", async () => {
     await setActiveWallet(wallet.address);

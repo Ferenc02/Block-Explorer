@@ -3,6 +3,7 @@ import {
   getAllTransactions,
   getBlockTimeStamp,
   getValueInEther,
+  showTransactionDetails,
 } from "./ethers";
 
 export const initializeTransactionsTable = async (
@@ -52,7 +53,11 @@ let generateTransactionRow = async (
                 class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center"
               >
                 <div class="group relative cursor-pointer w-full">
-                  <p class="copy-element">
+                  <p class="copy-element ${
+                    transaction.from === location.hash.slice(1)
+                      ? "!text-zinc-600"
+                      : ""
+                  }">
                     ${transaction.from}
                   </p>
                   <span
@@ -66,7 +71,11 @@ let generateTransactionRow = async (
                 class="px-4 py-1 border-b border-table-border overflow-hidden flex items-center"
               >
                 <div class="group relative cursor-pointer w-full">
-                  <p class="copy-element">
+                  <p class="copy-element ${
+                    transaction.to === location.hash.slice(1)
+                      ? "!text-zinc-600"
+                      : ""
+                  }">
                     ${transaction.to}
                   </p>
                   <span
@@ -97,14 +106,19 @@ let generateTransactionRow = async (
                 class="px-2 py-1 border-b border-table-border overflow-hidden flex items-center justify-center"
               >
                 <button
+                  id="details-button"
                   class="text-white bg-ganache-yellow-light px-12 py-1 font-medium shadow-sm border border-search-border cursor-pointer hover:scale-[1.01] rounded-md"
-                >
+                  >
                   Details
                 </button>
                 </div>
               </div>`;
 
   row.innerHTML = htmlContent;
+
+  row.querySelector("#details-button")?.addEventListener("click", () => {
+    showTransactionDetails(transaction);
+  });
 
   return row;
 };

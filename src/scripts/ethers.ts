@@ -194,6 +194,11 @@ export const getLatestActivity = async (walletAddress: string) => {
 };
 
 // Function to get all transactions of a wallet
+// This function loops through all blocks and transactions to find the transactions of a wallet
+// Not the best way to do this since it is slow and inefficient
+// A better approach would be to use a database to store the transactions and only load new transactions when needed
+// But since the blockchain is not that big, this is fine for now
+// Another approach that can be used is using json-server to store the transactions in a json file and query the transactions
 export const getTransactions = async (walletAddress: string) => {
   let transactions = [];
 
@@ -238,7 +243,6 @@ export const getAllTransactions = async (limit: number) => {
 };
 
 // Function to set new active wallet
-
 export const setActiveWallet = async (walletAddress: string) => {
   activeWallet = new LocalWallet(walletAddress);
 
@@ -247,12 +251,92 @@ export const setActiveWallet = async (walletAddress: string) => {
   localStorage.setItem("activeWallet", walletAddress);
 };
 
+// show Transactions Details
+
+export const showTransactionDetails = async (
+  transaction: ethers.TransactionResponse
+) => {
+  console.log(transaction);
+  showMessageBox(
+    "success",
+    "Transaction Details",
+    `
+    
+<div class="flex flex-col gap-4 w-full overflow-auto">
+
+    <!-- Transaction Hash -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">Transaction Hash:</p>
+      <p>${transaction.hash}</p>
+    </div>
+
+    <!-- Timestamp -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">Timestamp:</p>
+      <p>${await new Date(
+        (await getBlockTimeStamp(transaction.blockNumber!)) * 1000
+      ).toLocaleString()}</p>
+    </div>
+
+    <!-- From -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">From:</p>
+      <p>${transaction.from}</p>
+    </div>
+
+    <!-- To -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">To:</p>
+      <p>${transaction.to || "Contract Creation"}</p>
+    </div>
+
+    <!-- Transaction Amount -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">Value:</p>
+      <p>${getValueInEther(transaction.value)} ETH</p>
+    </div>
+
+    <!-- Gas Price -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">Gas Price:</p>
+      <p>${getValueInEther(transaction.gasPrice)} ETH</p>
+    </div>
+
+    <!-- Gas Limit -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">Gas Limit:</p>
+      <p>${transaction.gasLimit.toString()}</p>
+    </div>
+
+    <!-- Block Number -->
+    <div class="flex gap-4 flex-col lg:flex-row">
+      <p class="font-bold">Block Number:</p>
+      <p>${transaction.blockNumber?.toString() || "Pending"}</p>
+    </div>
+
+</div>
+
+    `
+  );
+
+  // transactionHash.innerText = transaction.hash;
+  // transactionBlockNumber.innerText = transaction.blockNumber?.toString() || "Pending";
+  // transactionFrom.innerText = transaction.from;
+  // transactionTo.innerText = transaction.to || "Contract Creation";
+  // transactionValue.innerText = getValueInEther(transaction.value) + " ETH";
+  // transactionGasPrice.innerText = getValueInEther(transaction.gasPrice) + " ETH";
+  // transactionGasLimit.innerText = transaction.gasLimit.toString();
+  // transactionGasUsed.innerText = transaction.gasUsed.toString();
+  // transactionStatus.innerText = transaction.blockNumber ? "Confirmed" : "Pending";
+  // transactionTimeStamp.innerText = new Date(transaction.timestamp * 1000).toDateString();
+};
+
 export class LocalWallet {
   constructor(
     public address: string,
-    public balance?: string,
-    public transactions?: Array<ethers.TransactionResponse>,
-    public lastActivity?: string
+    public balance: string = "0",
+    public transactions: Array<ethers.TransactionResponse> = [],
+    public lastActivity: string = "No activity found"
   ) {}
   async init() {
     try {

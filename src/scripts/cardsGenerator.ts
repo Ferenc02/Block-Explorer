@@ -7,6 +7,7 @@ import {
   getLatestActivity,
   getTransactionCount,
   activeWallet,
+  LocalWallet,
 } from "./ethers";
 import { showMessageBox } from "./messageBox";
 import { initializeHeader } from "./header";
@@ -92,6 +93,10 @@ const generateCard = async (walletAddress: string) => {
     "relative"
   );
 
+  let wallet = new LocalWallet(walletAddress);
+
+  await wallet.init();
+
   let walletInformation = {
     walletAddress: walletAddress,
     balance: "0",
@@ -99,13 +104,11 @@ const generateCard = async (walletAddress: string) => {
     lastActivity: "0",
   };
 
-  walletInformation.balance = (await getBalanceInEther(walletAddress))
-    .toString()
-    .slice(0, 7);
-  walletInformation.transactionCount = await getTransactionCount(walletAddress);
-  walletInformation.lastActivity = await getLatestActivity(walletAddress);
+  walletInformation.balance = (wallet.balance as string).slice(0, 7);
+  walletInformation.transactionCount = wallet.transactions.length.toString();
+  walletInformation.lastActivity = await wallet.getLastActivity();
 
-  card.setAttribute("data-balance", walletInformation.balance);
+  card.setAttribute("data-balance", wallet.balance);
   card.setAttribute("data-transactions", walletInformation.transactionCount);
   card.setAttribute("data-last-activity", walletInformation.lastActivity);
 
