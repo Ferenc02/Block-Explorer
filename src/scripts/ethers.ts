@@ -22,6 +22,8 @@ export async function initializeProvider() {
 
   activeWallet = new LocalWallet(localStorageActiveWallet);
 
+  await activeWallet.init();
+
   console.log(activeWallet);
   return provider;
 }
@@ -237,8 +239,10 @@ export const getAllTransactions = async (limit: number) => {
 
 // Function to set new active wallet
 
-export const setActiveWallet = (walletAddress: string) => {
+export const setActiveWallet = async (walletAddress: string) => {
   activeWallet = new LocalWallet(walletAddress);
+
+  await activeWallet.init();
 
   localStorage.setItem("activeWallet", walletAddress);
 };
@@ -249,16 +253,10 @@ export class LocalWallet {
     public balance?: string,
     public transactions?: Array<ethers.TransactionResponse>,
     public lastActivity?: string
-  ) {
-    this.init();
-  }
-  private async init() {
-    await this.loadWallet();
-  }
-
-  loadWallet = async () => {
+  ) {}
+  async init() {
     try {
-      let addressExists = await provider.getBalance(this.address);
+      await provider.getBalance(this.address);
     } catch (error: any) {
       showMessageBox("error", "404 Not Found", "Wallet address not found");
       return;
@@ -266,7 +264,7 @@ export class LocalWallet {
 
     this.balance = await this.getBalance();
     this.transactions = await this.getTransactions();
-  };
+  }
 
   getBalance = async () => {
     return await getBalanceInEther(this.address);

@@ -5,11 +5,16 @@ import {
   getValueInEther,
 } from "./ethers";
 
-export const initializeTransactionsTable = async (limit: number) => {
+export const initializeTransactionsTable = async (
+  limit: number,
+  transactions?: Array<ethers.TransactionResponse>
+) => {
   let transactionsTable =
     document.querySelector<HTMLTableElement>("#transactions-grid")!;
 
-  let transactions = await getAllTransactions(limit);
+  if (!transactions) {
+    transactions = await getAllTransactions(limit);
+  }
 
   for (const transaction of transactions) {
     let row = await generateTransactionRow(transaction);
