@@ -103,7 +103,7 @@ const generateCard = async (walletAddress: string) => {
 
   walletInformation.balance = (wallet.balance as string).slice(0, 7);
   walletInformation.transactionCount = wallet.transactions.length.toString();
-  walletInformation.lastActivity = await wallet.getLastActivity();
+  walletInformation.lastActivity = await wallet.getLatestActivity();
 
   card.setAttribute("data-balance", wallet.balance);
   card.setAttribute("data-transactions", walletInformation.transactionCount);

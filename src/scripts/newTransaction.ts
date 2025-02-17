@@ -1,6 +1,7 @@
 import {
   activeWallet,
   getAllWalletsAddress,
+  getBalanceInEther,
   sendTransaction,
   showTransactionDetails,
 } from "./ethers";
@@ -18,7 +19,12 @@ export const initializeTransactionPage = async () => {
   let dataList = document.getElementById("wallets-list") as HTMLDataListElement;
   let maxAmount = document.getElementById("max-amount") as HTMLSpanElement;
 
+  let fromInput = transactionForm.elements.namedItem(
+    "from"
+  ) as HTMLInputElement;
+
   let parsedMaxAmount = parseFloat(activeWallet.balance.slice(0, 8));
+
   //   Add the active wallet balance to the maxAmount span
   maxAmount.textContent = parsedMaxAmount.toString();
   maxAmount.addEventListener("click", () => {
@@ -40,6 +46,13 @@ export const initializeTransactionPage = async () => {
     (transactionForm.elements.namedItem("to") as HTMLInputElement).value =
       recepientAddress;
   }
+
+  fromInput.addEventListener("input", async (event) => {
+    let balance = await getBalanceInEther(fromInput.value);
+    parsedMaxAmount = parseFloat(balance.slice(0, 8));
+    //   Add the active wallet balance to the maxAmount span
+    maxAmount.textContent = parsedMaxAmount.toString();
+  });
 
   transactionForm.addEventListener("submit", async (event) => {
     event.preventDefault();

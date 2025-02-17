@@ -167,44 +167,68 @@ const loadBlocks = async () => {
 };
 
 // Function to get the last activity of a wallet
-// Binary search is used to find the last activity of a wallet to speed up the process
-// Would not be efficient to loop through all blocks to find the last activity
-export const getLatestActivity = async (walletAddress: string) => {
-  let low = 0;
-  let high = blocks.length - 1;
-
+//// Binary search is used to find the last activity of a wallet to speed up the process
+//// Would not be efficient to loop through all blocks to find the last activity
+// The function now finds latest activity by checking the transactions in that wallet and checks all blocks to find the latest activity
+export const getLatestActivity = async (
+  transactions: Array<ethers.TransactionResponse>
+) => {
+  if (!transactions || transactions.length === 0) {
+    return "No activity found";
+  }
   let latestActivity = "";
 
-  while (low <= high) {
-    let mid = Math.floor((low + high) / 2);
+  let latestTransaction = transactions[0];
 
-    const block = blocks[mid];
+  latestActivity =
+    blocks
+      .find((block) => {
+        console.log(block.transactions, latestTransaction.hash);
+        if (block.transactions.includes(latestTransaction.hash)) {
+          return block;
+        }
+      })
+      ?.timestamp.toString() || "No activity found";
 
-    let found = false;
+  let date = new Date(parseInt(latestActivity) * 1000);
 
-    for (const transaction of block.transactions) {
-      const tx = (await provider.getTransaction(
-        transaction
-      )) as ethers.TransactionResponse;
-      if (
-        tx.from.toLowerCase() === walletAddress.toLowerCase() ||
-        (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
-      ) {
-        let date = new Date(block.timestamp * 1000);
-        found = true;
-        latestActivity = date.toDateString();
-        break;
-      }
-    }
+  return date.toDateString();
 
-    if (found) {
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
+  // let low = 0;
 
-  return latestActivity || "No activity found";
+  // let high = blocks.length - 1;
+
+  // let date = new Date(latestActivity * 1000);
+  // latestActivity = date.toDateString();
+
+  // while (low <= high) {
+  //   let mid = Math.floor((low + high) / 2);
+
+  //   const block = blocks[mid];
+
+  //   let found = false;
+
+  //   for (const transaction of transactions) {
+  //     const tx = (await provider.getTransaction(
+  //       transaction
+  //     )) as ethers.TransactionResponse;
+  //     if (
+  //       tx.from.toLowerCase() === walletAddress.toLowerCase() ||
+  //       (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
+  //     ) {
+  //       let date = new Date(block.timestamp * 1000);
+  //       found = true;
+  //       latestActivity = date.toDateString();
+  //       break;
+  //     }
+  //   }
+
+  //   if (found) {
+  //     low = mid + 1;
+  //   } else {
+  //     high = mid - 1;
+  //   }
+  // }
 };
 
 // Function to get all transactions of a wallet
@@ -377,8 +401,8 @@ export class LocalWallet {
     return await getBalanceInEther(this.address);
   };
 
-  getLastActivity = async () => {
-    return await getLatestActivity(this.address);
+  getLatestActivity = async () => {
+    return await getLatestActivity(this.transactions);
   };
 
   getTransactions = async () => {
