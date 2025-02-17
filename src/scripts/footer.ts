@@ -22,22 +22,22 @@ export const initializeFooter = async () => {
   };
 
   elements = {
-    footerTotalBlocks: document.querySelector<HTMLSpanElement>(
+    footerTotalBlocks: footer.querySelector<HTMLSpanElement>(
       `.${elementsSelector.footerTotalBlocks}`
     ),
-    footerTotalTransactions: document.querySelector<HTMLSpanElement>(
+    footerTotalTransactions: footer.querySelector<HTMLSpanElement>(
       `.${elementsSelector.footerTotalTransactions}`
     ),
-    footerBlockTime: document.querySelector<HTMLSpanElement>(
+    footerBlockTime: footer.querySelector<HTMLSpanElement>(
       `.${elementsSelector.footerBlockTime}`
     ),
-    footerTotalWallets: document.querySelector<HTMLSpanElement>(
+    footerTotalWallets: footer.querySelector<HTMLSpanElement>(
       `.${elementsSelector.footerTotalWallets}`
     ),
-    footerNetworkSync: document.querySelector<HTMLSpanElement>(
+    footerNetworkSync: footer.querySelector<HTMLSpanElement>(
       `.${elementsSelector.footerNetworkSync}`
     ),
-    footerNetwork: document.querySelector<HTMLSpanElement>(
+    footerNetwork: footer.querySelector<HTMLSpanElement>(
       `.${elementsSelector.footerNetwork}`
     ),
   };
@@ -47,15 +47,6 @@ export const initializeFooter = async () => {
 
 // Function to update the footer with the latest data
 const updateFooter = async () => {
-  const loadingText = "Loading...";
-
-  elements.footerTotalBlocks!.innerText = loadingText;
-  elements.footerTotalTransactions!.innerText = loadingText;
-  elements.footerBlockTime!.innerText = loadingText;
-  elements.footerTotalWallets!.innerText = loadingText;
-  elements.footerNetworkSync!.innerText = loadingText;
-  elements.footerNetwork!.innerText = loadingText;
-
   const data = {
     totalBlocks: "0",
     totalTransactions: "0",

@@ -179,18 +179,17 @@ const generateCard = async (walletAddress: string) => {
 
   card.innerHTML = cardHtml;
 
-  let useWalletButton =
-    card.querySelector<HTMLButtonElement>("#use-wallet-button");
+  card
+    .querySelector<HTMLButtonElement>("#use-wallet-button")!
+    .addEventListener("click", () => {
+      setActiveWallet(walletInformation.walletAddress);
 
-  useWalletButton!.addEventListener("click", () => {
-    setActiveWallet(walletInformation.walletAddress);
+      showMessageBox("success", "Success", "Wallet set as active");
 
-    showMessageBox("success", "Success", "Wallet set as active");
-
-    initializeHeader();
-    initializeCopyButtons();
-    initializeCards();
-  });
+      initializeHeader();
+      initializeCopyButtons();
+      initializeCards();
+    });
 
   return card;
 };
