@@ -18,7 +18,8 @@ export async function initializeProvider() {
 
   let localStorageActiveWallet =
     localStorage.getItem("activeWallet") ||
-    "0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA";
+    (await provider.listAccounts())[0]?.address ||
+    "";
 
   activeWallet = new LocalWallet(localStorageActiveWallet);
 
@@ -68,6 +69,12 @@ export const getTotalTransactions = async () => {
 // Function to get the average block time in seconds
 export const getAverageBlockTime = async () => {
   const latestBlock = (await provider.getBlock("latest")) as ethers.Block;
+
+  // If there are no blocks, return 0 to avoid getting negative number
+  if (latestBlock.number == 0) {
+    return "0";
+  }
+
   const previousBlock = (await provider.getBlock(
     latestBlock.number - 1
   )) as ethers.Block;

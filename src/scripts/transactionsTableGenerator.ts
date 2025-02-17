@@ -111,7 +111,7 @@ let generateTransactionRow = async (
               >
                 <button
                   id="details-button"
-                  class="text-white bg-ganache-yellow-light px-12 py-1 font-medium shadow-sm border border-search-border cursor-pointer hover:scale-[1.01] rounded-md"
+                  class="text-white !bg-ganache-yellow-light px-12 py-1 font-medium shadow-sm border border-search-border cursor-pointer hover:scale-[1.01] rounded-md"
                   >
                   Details
                 </button>

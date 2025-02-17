@@ -35,7 +35,7 @@ export const showMessageBox = (
         <p class="message-box__text text-gray-700">
             ${message}
         </p>
-        <button class="message-box__button button bg-ganache-yellow-light hover:bg-ganache-yellow-dark transition-colors w-full cursor-pointer">Close</button>
+        <button class="message-box__button button !bg-ganache-yellow-light hover:!bg-ganache-yellow-dark transition-colors w-full cursor-pointer">Close</button>
       </div>
     </div>
 

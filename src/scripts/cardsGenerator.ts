@@ -113,7 +113,7 @@ const generateCard = async (walletAddress: string) => {
 
               ${
                 activeWallet.address === walletInformation.walletAddress
-                  ? ` <div class="absolute top-0 right-0 bg-ganache-yellow-light p-2 rounded-lg  text-white text-xs font-bold uppercase select-none">
+                  ? ` <div class="absolute top-0 right-0 !bg-ganache-yellow-light p-2 rounded-lg  text-white text-xs font-bold uppercase select-none">
                 Active
               </div>`
                   : ""
@@ -159,14 +159,14 @@ const generateCard = async (walletAddress: string) => {
               <a
                 id="view-wallet-button"
                 href="/wallet/#${walletInformation.walletAddress}"
-                class="bg-ganache-brown-light !text-white p-2 !uppercase !text-center !font-bold rounded-md text-sm w-full hover:bg-ganache-brown-dark transition-colors cursor-pointer shadow-sm"
+                class="!bg-ganache-brown-light !text-white p-2 !uppercase !text-center !font-bold rounded-md text-sm w-full hover:!bg-ganache-brown-dark transition-colors cursor-pointer shadow-sm"
               >
                 View Wallet
               </a>
 
               <button
                 id="use-wallet-button"
-                class="bg-ganache-yellow-light text-white p-2 uppercase font-bold rounded-md text-sm w-full hover:bg-ganache-yellow-dark transition-colors cursor-pointer shadow-sm"
+                class="!bg-ganache-yellow-light text-white p-2 uppercase font-bold rounded-md text-sm w-full hover:!bg-ganache-yellow-dark transition-colors cursor-pointer shadow-sm"
               >
                 Use Wallet
               </button>

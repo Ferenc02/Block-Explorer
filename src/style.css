@@ -109,19 +109,6 @@ h1 {
   animation: grow 300ms ease-in forwards;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #fefefe;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
