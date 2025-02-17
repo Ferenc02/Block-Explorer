@@ -14,7 +14,7 @@ export let activeWallet: LocalWallet;
 export async function initializeProvider() {
   provider = (await checkProvider()) || new ethers.JsonRpcProvider();
 
-  loadBlocks();
+  await loadBlocks();
 
   let localStorageActiveWallet =
     localStorage.getItem("activeWallet") ||
@@ -24,7 +24,6 @@ export async function initializeProvider() {
 
   await activeWallet.init();
 
-  console.log(activeWallet);
   return provider;
 }
 
@@ -137,6 +136,22 @@ export const getTransactionCount = async (walletAddress: string) => {
   return transactionCount.toString();
 };
 
+// Function to send a transaction
+export const sendTransaction = async (
+  from: string,
+  to: string,
+  amount: string
+) => {
+  const signer = await provider.getSigner(from);
+
+  const tx = await signer.sendTransaction({
+    to: to,
+    value: ethers.parseEther(amount),
+  });
+
+  return tx;
+};
+
 // Function to load all blocks
 const loadBlocks = async () => {
   if (!hasLoadedBlocks) {
@@ -144,9 +159,7 @@ const loadBlocks = async () => {
 
     for (let i = latestBlock; i >= 0; i--) {
       const block = await provider.getBlock(i);
-      if (block) {
-        blocks.push(block);
-      }
+      blocks.push(block!);
     }
 
     hasLoadedBlocks = true;
@@ -195,27 +208,35 @@ export const getLatestActivity = async (walletAddress: string) => {
 };
 
 // Function to get all transactions of a wallet
-// This function loops through all blocks and transactions to find the transactions of a wallet
-// Not the best way to do this since it is slow and inefficient
+//// This function loops through all blocks and transactions to find the transactions of a wallet (Previous code, not used)
+//// Not the best way to do this since it is slow and inefficient (Previous code, not used)
+// Function uses map and promise all to fetch transactions in parallel since it's much faster than using a for loop
 // A better approach would be to use a database to store the transactions and only load new transactions when needed
 // But since the blockchain is not that big, this is fine for now
 // Another approach that can be used is using json-server to store the transactions in a json file and query the transactions
 export const getTransactions = async (walletAddress: string) => {
-  let transactions = [];
+  let transactions: ethers.TransactionResponse[] = [];
 
-  for (const block of blocks) {
-    for (const transaction of block.transactions) {
-      const tx = (await provider.getTransaction(
-        transaction
-      )) as ethers.TransactionResponse;
-      if (
-        tx.from.toLowerCase() === walletAddress.toLowerCase() ||
-        (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
-      ) {
-        transactions.push(tx);
+  // Filter transactions in parallel
+  const transactionPromises = blocks.flatMap((block) =>
+    block.transactions.map(async (txHash: string) => {
+      try {
+        const tx = (await provider.getTransaction(
+          txHash
+        )) as ethers.TransactionResponse;
+        if (
+          tx.from.toLowerCase() === walletAddress.toLowerCase() ||
+          (tx.to && tx.to.toLowerCase() === walletAddress.toLowerCase())
+        ) {
+          transactions.push(tx);
+        }
+      } catch (error) {
+        console.error(`Failed to fetch transaction ${txHash}:`, error);
       }
-    }
-  }
+    })
+  );
+
+  await Promise.all(transactionPromises);
 
   return transactions;
 };
@@ -254,7 +275,8 @@ export const setActiveWallet = async (walletAddress: string) => {
 
 // show Transactions Details
 export const showTransactionDetails = async (
-  transaction: ethers.TransactionResponse
+  transaction: ethers.TransactionResponse,
+  persistent?: boolean
 ) => {
   console.log(transaction);
   showMessageBox(
@@ -316,7 +338,8 @@ export const showTransactionDetails = async (
 
 </div>
 
-    `
+    `,
+    persistent ? true : false
   );
 
   // transactionHash.innerText = transaction.hash;

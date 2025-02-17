@@ -16,6 +16,10 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html"),
         nested: resolve(__dirname + "/wallet", "src/wallet/index.html"),
+        newTransaction: resolve(
+          __dirname + "/new-transaction",
+          "src/new-transaction/index.html"
+        ),
       },
     },
   },

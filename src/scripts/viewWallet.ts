@@ -38,6 +38,10 @@ export const initializeViewWallet = async () => {
   let useWalletButton =
     document.querySelector<HTMLButtonElement>("#use-wallet-button")!;
 
+  let makeTransactionButton = document.querySelector<HTMLButtonElement>(
+    "#make-transaction-button"
+  )!;
+
   // I'm using Regex to replace the data attribute since it can be faster than turning it into an array and then joining it back together
   walletSectionQRCodeImage.src = walletSectionQRCodeImage.src.replace(
     /data=[^&]+/,
@@ -60,12 +64,20 @@ export const initializeViewWallet = async () => {
     useWalletButton.classList.remove("hidden");
   }
 
+  if (wallet.address !== localStorage.getItem("activeWallet")) {
+    makeTransactionButton.classList.remove("hidden");
+  }
+
   useWalletButton.addEventListener("click", async () => {
     await setActiveWallet(wallet.address);
 
     showMessageBox("success", "Success", "Wallet set as active");
 
     initializeHeader();
+  });
+
+  makeTransactionButton.addEventListener("click", async () => {
+    location.href = `/new-transaction/#${wallet.address}`;
   });
 
   await initializeTransactionsTable(20, wallet.transactions);

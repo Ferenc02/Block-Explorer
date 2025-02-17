@@ -6,6 +6,7 @@ import { initializeCards } from "./scripts/cardsGenerator";
 import { initializeTransactionsTable } from "./scripts/transactionsTableGenerator";
 import { initializeHeader } from "./scripts/header";
 import { initializeViewWallet } from "./scripts/viewWallet";
+import { initializeTransactionPage } from "./scripts/newTransaction";
 
 const init = async () => {
   initializeThemeSwitcher();
@@ -26,9 +27,15 @@ const init = async () => {
     await initializeViewWallet();
   }
 
+  if (location.pathname === "/new-transaction/") {
+    await initializeTransactionPage();
+  }
+
   await initializeFooter();
 
-  initializeActionButton();
+  if (location.pathname !== "/new-transaction/") {
+    initializeActionButton();
+  }
 };
 
 // Function used to initialize the action button and add the event listener to toggle the action buttons container
@@ -47,15 +54,13 @@ export const initializeActionButton = () => {
   let actionButtons =
     actionButtonsContainer?.querySelectorAll<HTMLButtonElement>("button");
 
-  // Make a transaction button
-  actionButtons![0].addEventListener("click", async () => {
-    location.href = "/new-transaction/";
-  });
-
   // View active wallet button
-  actionButtons![1].addEventListener("click", async () => {
+  actionButtons![0].addEventListener("click", async () => {
     location.href = `/wallet/#${activeWallet.address}`;
-    location.reload();
+  });
+  // Make a transaction button
+  actionButtons![1].addEventListener("click", async () => {
+    location.href = `/new-transaction/`;
   });
 };
 

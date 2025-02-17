@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/static/icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <script defer type="module" src="../main.ts"></script>
+    <title>Blockchain Explorer - Transaction</title>
+  </head>
+  <body class="flex flex-col h-screen">
+    <header
+      class="flex w-full justify-between p-4 flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 fade-in"
+    >
+      <a class="icon-container" href="/">
+        <img
+          src="/static/icon.svg"
+          alt="Logo for Block Explorer"
+          class="w-12 h-12"
+        />
+      </a>
+      <div class=""></div>
+      <div class=""></div>
+    </header>
+    <main id="app" class="h-full overflow-y-auto p-4 relative">
+      <div class="flex justify-center items-center h-full">
+        <div
+          class="scale-100 sm:scale-150 flex flex-col w-fit items-center space-y-4 bg-search border-search-border border shadow-lg p-4 rounded-md"
+        >
+          <h1 class="!text-2xl font-bold">New Transaction</h1>
+          <form
+            id="new-transaction-form"
+            class="flex flex-col items-center gap-2"
+          >
+            <div class="flex flex-col gap-1">
+              <label for="from" class="text-sm text-gray-500">From:</label>
+              <input
+                list="wallets-list"
+                type="text"
+                name="from"
+                id="from"
+                placeholder="0xc0d8F541Ab8B71F20c10261818F2F401e8194049"
+                required
+                class="p-2 border border-gray-300 rounded-md w-80 outline-none focus:border-ganache-yellow-light transition-colors px-4 text-sm"
+              />
+              <datalist id="wallets-list"> </datalist>
+            </div>
+            <div class="flex flex-col gap-1">
+              <label for="to" class="text-sm text-gray-500">To:</label>
+              <input
+                type="text"
+                list="wallets-list"
+                name="to"
+                id="to"
+                placeholder="0xe092b1fa25DF5786D151246E492Eed3d15EA4dAA"
+                required
+                class="p-2 border border-gray-300 rounded-md w-80 outline-none focus:border-ganache-yellow-light transition-colors px-4 text-sm"
+              />
+              <datalist id="wallets-list"> </datalist>
+            </div>
+            <div class="flex flex-col">
+              <label for="amount" class="text-sm text-gray-500 mb-1"
+                >Amount:</label
+              >
+              <input
+                type="number"
+                name="amount"
+                id="amount"
+                placeholder="0.05 ETH"
+                required
+                step="0.0001"
+                class="p-2 border border-gray-300 rounded-md w-80 outline-none focus:border-ganache-yellow-light transition-colors px-4 text-sm"
+              />
+
+              <p class="text-sm text-gray-500 mt-2">
+                Max amount:
+                <span id="max-amount" class="font-medium cursor-pointer"
+                  >Loading...</span
+                >
+              </p>
+            </div>
+            <button
+              type="submit"
+              class="p-2 bg-ganache-yellow-light hover:bg-ganache-yellow-dark transition-colors cursor-pointer text-white rounded-md w-80"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer class="p-2 bg-gray-800 font-bold">
+      <div class="w-full fade-in flex justify-around items-center flex-wrap">
+        <p class="text-white text-sm footer-total-blocks">
+          📦 Total Blocks: Loading...
+        </p>
+        <p class="text-white text-sm footer-total-transactions">
+          🔄 Total Transactions: Loading...
+        </p>
+        <p class="text-white text-sm footer-block-time">
+          ⏳ Average Block Time: Loading...
+        </p>
+        <p class="text-white text-sm footer-total-wallets">
+          🔗 Total Wallets: Loading...
+        </p>
+        <p class="text-white text-sm footer-network-sync">
+          🖧 Network Status: Loading...
+        </p>
+        <p class="text-white text-sm footer-network">📡 Network: Loading...</p>
+        <button
+          id="theme-switcher"
+          class="theme-switcher cursor-pointer flex items-center"
+        >
+          <span class="material-symbols-outlined text-white"> dark_mode </span>
+          <span class="material-symbols-outlined text-white"> light_mode </span>
+        </button>
+      </div>
+    </footer>
+  </body>
+</html>

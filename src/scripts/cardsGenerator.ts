@@ -1,11 +1,7 @@
-import { Wallet } from "ethers";
 import { initializeCopyButtons } from "./copyButton";
 import {
   setActiveWallet,
   getAllWalletsAddress,
-  getBalanceInEther,
-  getLatestActivity,
-  getTransactionCount,
   activeWallet,
   LocalWallet,
 } from "./ethers";
@@ -27,10 +23,11 @@ export const initializeCards = async () => {
     let card = await generateCard(walletAddress);
     cardContainer.appendChild(card);
     walletCards.push(card);
-
-    // Add a delay to make the cards appear one by one instead of all at once for a better user experience
-    // await sleep(50);
   }
+
+  //   // Add a delay to make the cards appear one by one instead of all at once for a better user experience
+  //   // await sleep(50);
+  // }
 
   // Add event listeners for the sort buttons
   let selectionButton =

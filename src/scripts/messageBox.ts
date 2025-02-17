@@ -1,7 +1,8 @@
 export const showMessageBox = (
   type: "error" | "success",
   title: string,
-  message: string
+  message: string,
+  reloadPage?: boolean
 ) => {
   const messageBoxParent = document.createElement("div");
 
@@ -47,6 +48,10 @@ export const showMessageBox = (
       event.target === messageBoxParent.querySelector(".message-box__button")
     ) {
       messageBoxParent.remove();
+
+      if (reloadPage) {
+        location.reload();
+      }
     }
   });
 
