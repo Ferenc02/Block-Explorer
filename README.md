@@ -27,6 +27,21 @@ This project is designed to provide a comprehensive blockchain explorer tool. Th
 - Monitor the status of your sent transactions
 - View transaction fees and estimated confirmation times
 
+
+![homepage](https://github.com/user-attachments/assets/7d6fff08-baad-4574-9d50-daf4574ebc0d)
+![homepage2](https://github.com/user-attachments/assets/771bcc87-2f68-4d0d-adf1-dd5ecf595cf5)
+![homepage3](https://github.com/user-attachments/assets/3e71cf1f-8cfa-4722-8dc3-2fd26024618f)
+![homepage4](https://github.com/user-attachments/assets/21b87511-353f-46e0-8a69-754bf0422e55)
+![homepage5](https://github.com/user-attachments/assets/6f8a04f9-bb13-4bd3-8552-d7cbfcdea0ca)
+![homepage6](https://github.com/user-attachments/assets/c01388df-752c-45f9-affe-4e38d6aacd99)
+
+
+
+
+
+
+
+
 ## Technologies Used
 
 - **Frontend**: HTML, CSS, TypeScript, Tailwind CSS, Vite
