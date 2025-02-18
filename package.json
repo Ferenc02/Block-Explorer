@@ -7,7 +7,7 @@
     "test": "vitest ",
     "dev": "npm-run-all -p -l dev:*",
     "dev:client": "vite",
-    "dev:server": "ganache --database.dbPath ./db/ganache-db  -m \"ship history tennis satoshi two almost surface genuine area uncover pact grass\"",
+    "dev:server": "ganache",
     "generateTransactions": "node ./generateRandomTransactions.js",
     "build": "tsc && vite build",
     "preview": "vite preview"
