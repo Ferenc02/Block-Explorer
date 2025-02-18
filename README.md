@@ -1,3 +1,7 @@
+# Note
+
+This branch is used if you want to run the project with a persistant database. The database is stored in the `db` folder
+
 # Project Description
 
 This project is designed to provide a comprehensive blockchain explorer tool. The platform allows users to browse the latest blocks on the blockchain, view detailed block and transaction information, search for blocks and addresses, and send transactions. It aims to offer a user-friendly interface for interacting with blockchain data and performing various blockchain-related tasks efficiently with their local ganache server.
