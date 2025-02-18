@@ -59,3 +59,6 @@ async function generateRandomTransactions(limit) {
 }
 
 await generateRandomTransactions(amountOfTransactionsToGenerate);
+console.log(
+  "\n💸 Transactions generated successfully, Reload the browser page to see the transactions. 💸"
+);
