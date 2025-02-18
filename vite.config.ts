@@ -12,14 +12,12 @@ export default defineConfig({
 
   build: {
     outDir: "../dist",
+
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "src/index.html"),
-        nested: resolve(__dirname + "/wallet", "src/wallet/index.html"),
-        newTransaction: resolve(
-          __dirname + "/new-transaction",
-          "src/new-transaction/index.html"
-        ),
+        main: resolve("src", "index.html"),
+        wallet: resolve("src", "wallet/index.html"),
+        newTransaction: resolve("src", "new-transaction/index.html"),
       },
     },
   },

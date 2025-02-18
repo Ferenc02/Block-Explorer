@@ -62,7 +62,7 @@ export const initializeTransactionPage = async () => {
   }
 
   //   Add an event listener to the from input to get the balance of the sender
-  fromInput.addEventListener("input", async (event) => {
+  fromInput.addEventListener("input", async () => {
     let balance = await getBalanceInEther(fromInput.value);
     parsedMaxAmount = parseFloat(balance.slice(0, 8));
     //   Add the active wallet balance to the maxAmount span
