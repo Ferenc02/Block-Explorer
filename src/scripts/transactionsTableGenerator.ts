@@ -1,3 +1,13 @@
+/*
+ *
+ *  transactionsTableGenerator.ts - This file is responsible for generating the transactions table
+ *
+ * This file is responsible for generating the transactions table
+ * It fetches the transactions from the blockchain and displays them in a table
+ * It also allows the user to view the details of a transaction
+ */
+
+// ---- imports from other scripts ----
 import { ethers } from "ethers";
 import {
   getAllTransactions,
@@ -8,6 +18,12 @@ import {
 
 import { initializeCopyButtons } from "./copyButton";
 
+/**
+ * Function to initialize the transactions table
+ * @param {number} limit - The number of transactions to fetch from the blockchain
+ * @param {Array<ethers.TransactionResponse>} transactions - An optional parameter to pass the transactions directly to the function
+ *
+ */
 export const initializeTransactionsTable = async (
   limit: number,
   transactions?: Array<ethers.TransactionResponse>
@@ -27,6 +43,15 @@ export const initializeTransactionsTable = async (
   initializeCopyButtons();
 };
 
+/**
+ *
+ * Function to generate a row in the transactions table
+ *
+ * @param transaction TransactionResponse object
+ * @returns A div element containing the transaction details
+ *
+ * I tried to use a table element for the transactions table but it was difficult to style it properly so good old grid worked wonders
+ */
 let generateTransactionRow = async (
   transaction: ethers.TransactionResponse
 ) => {

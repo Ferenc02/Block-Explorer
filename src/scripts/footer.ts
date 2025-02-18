@@ -1,3 +1,13 @@
+/*
+ *
+ *
+ * footer.ts - The script for the footer of the application
+ *
+ * This script is responsible for initializing the footer of the application
+ * It shows the total blocks, total transactions, average block time, total wallets, network sync status, and network name
+ *  */
+
+// --- Other Imports ---
 import {
   getAverageBlockTime,
   getNetworkName,
@@ -9,9 +19,13 @@ import {
 
 let elements: any;
 
+/**
+ * Function to initialize the footer
+ */
 export const initializeFooter = async () => {
   const footer = document.querySelector<HTMLDivElement>("footer")!;
 
+  // I put the class names in an object so I can easily access them
   let elementsSelector = {
     footerTotalBlocks: "footer-total-blocks",
     footerTotalTransactions: "footer-total-transactions",
@@ -45,7 +59,9 @@ export const initializeFooter = async () => {
   await updateFooter();
 };
 
-// Function to update the footer with the latest data
+/**
+ * Function to update the footer
+ */
 const updateFooter = async () => {
   const data = {
     totalBlocks: "0",
@@ -57,15 +73,10 @@ const updateFooter = async () => {
   };
 
   data.totalBlocks = await getTotalBlocks();
-
   data.totalTransactions = await getTotalTransactions();
-
   data.blockTime = await getAverageBlockTime();
-
   data.totalWallets = await getTotalWallets();
-
   data.networkSync = providerExists ? "Synced ✅" : "Not Synced ❌";
-
   data.network = await getNetworkName();
 
   elements.footerTotalBlocks!.innerText = `📦 Total Blocks: ${data.totalBlocks}`;

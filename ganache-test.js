@@ -1,3 +1,10 @@
+/*
+ *
+ * ganache-test.js Old code for testing the ganache local blockchain without always having to open the browser
+ * I will keep this code here for future reference
+ *
+ */
+
 // import { ethers, formatEther, parseEther } from "ethers";
 
 // const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");

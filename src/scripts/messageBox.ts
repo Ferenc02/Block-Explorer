@@ -1,3 +1,24 @@
+/*
+ *
+ *
+ *  messageBox.ts This file contains the function to show a message box on the screen
+ *
+ * This file contains the function to show a message box on the screen with a title, message and a close button
+ * The message box can be of two types: error or success
+ * The message box can also reload the page when the close button is clicked
+ * That is when the reloadPage parameter is set to true
+ *
+ * This script is originally from the other project we did but a better version of it with more features and modifications
+ * */
+
+/**
+ * Function to show a message box on the screen
+ * @param {string} type The type of the message box: error or success
+ * @param {string} title The title of the message box
+ * @param {string} message The message to be displayed in the message box
+ * @param {boolean=} reloadPage Optional boolean to determine if the page should be reloaded when the message box is closed. Default is false
+ *
+ * */
 export const showMessageBox = (
   type: "error" | "success",
   title: string,
@@ -42,6 +63,7 @@ export const showMessageBox = (
 
     `;
 
+  // Add event listener to the message box parent to remove the message box when the close button is clicked
   messageBoxParent.addEventListener("click", (event) => {
     if (
       event.target === messageBoxParent.querySelector(".message-box") ||
