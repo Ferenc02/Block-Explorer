@@ -13,9 +13,11 @@
     "preview": "vite preview"
   },
   "scriptsComments": {
+    "test": "Runs the tests",
     "dev": "Starts the development server and the local blockchain",
     "dev:client": "Starts the Vite development server",
     "dev:server": "Starts the Ganache local blockchain",
+    "generateTransactions": "Generates random transactions to the local blockchain",
     "build": "Builds the project",
     "preview": "Previews the production build"
   },
