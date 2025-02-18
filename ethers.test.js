@@ -23,20 +23,6 @@ describe("Provider Testing", async () => {
   });
 });
 
-describe("Total Transactions", () => {
-  it("Should return the total number of transactions", async () => {
-    await initializeProvider();
-    const latestBlockNumber = await provider.getBlockNumber();
-    console.log("Latest Block Number: ", latestBlockNumber);
-
-    let totalTransactions = await getTotalTransactions();
-    totalTransactions = parseInt(totalTransactions);
-    console.log("Total Transactions: ", totalTransactions);
-
-    expect(totalTransactions).toBeGreaterThan(0);
-  });
-});
-
 describe("Get TotalWallets", () => {
   it("Should return the total number of wallets", async () => {
     await initializeProvider();
@@ -97,5 +83,19 @@ describe("Create a transaction", () => {
     const tx = await sendTransaction(from, to, amountToSend.toString());
     console.log("Transaction: ", tx);
     expect(tx).toMatchObject(transactionTemplate);
+  });
+});
+
+describe("Total Transactions", () => {
+  it("Should return the total number of transactions", async () => {
+    await initializeProvider();
+    const latestBlockNumber = await provider.getBlockNumber();
+    console.log("Latest Block Number: ", latestBlockNumber);
+
+    let totalTransactions = await getTotalTransactions();
+    totalTransactions = parseInt(totalTransactions);
+    console.log("Total Transactions: ", totalTransactions);
+
+    expect(totalTransactions).toBeGreaterThan(0);
   });
 });
