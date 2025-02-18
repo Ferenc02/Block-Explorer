@@ -13,7 +13,6 @@ const init = async () => {
   initializeThemeSwitcher();
 
   let provider = await initializeProvider();
-  initializeCopyButtons();
 
   initializeHeader();
 
@@ -38,6 +37,8 @@ const init = async () => {
     await initializeSearchBar();
     initializeActionButton();
   }
+
+  initializeCopyButtons();
 };
 
 // Function used to initialize the action button and add the event listener to toggle the action buttons container

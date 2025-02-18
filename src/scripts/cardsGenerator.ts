@@ -15,6 +15,7 @@ export const initializeCards = async () => {
     document.querySelector<HTMLDivElement>("#wallets-container")!;
   walletCards = [];
 
+  // Clear the container before adding the cards
   cardContainer.innerHTML = "";
 
   let wallets = await getAllWalletsAddress();
